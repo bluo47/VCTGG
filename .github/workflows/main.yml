@@ -27,7 +27,7 @@ jobs:
       #   run: ng test --watch=false --browsers=ChromeHeadless
 
       - name: Build Angular App
-        run: ng build --configuration=production --base-href=/VCTGG/
+        run: npx ng build --configuration=production --base-href=/VCTGG/
         # IMPORTANT:
         # Replace 'your-repo-name' with the actual name of your GitHub repository
         # For example, if your repo is 'my-angular-portfolio', use '/my-angular-portfolio/'
