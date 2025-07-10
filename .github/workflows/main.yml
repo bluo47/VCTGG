@@ -1,0 +1,42 @@
+name: Deploy Angular App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # or master, depending on your default branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use your preferred Node.js version, e.g., '16', '18', '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      # Optional but Recommended: Run Tests
+      # Ensure you have Karma and a headless browser setup if you enable this
+      # - name: Run Tests
+      #   run: ng test --watch=false --browsers=ChromeHeadless
+
+      - name: Build Angular App
+        run: ng build --configuration=production --base-href=/VCTGG/
+        # IMPORTANT:
+        # Replace 'your-repo-name' with the actual name of your GitHub repository
+        # For example, if your repo is 'my-angular-portfolio', use '/my-angular-portfolio/'
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/VCTGG # Replace 'your-angular-project-name'
+          # This should be the name of the folder created inside 'dist/' after 'ng build'
+          # Typically, it's the name of your Angular project as defined in angular.json.
+          # For example, if your project is named 'my-app', it will be 'dist/my-app'.
